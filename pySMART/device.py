@@ -399,6 +399,11 @@ class Device(object):
             return
         for attr in self.attributes:
             if attr is not None:
+                try:
+                    if attr.name == "Unknown_Attribute" and int(attr.value) >= 100:
+                        continue
+                except ValueError:
+                    pass
                 if attr.when_failed == 'In_the_past':
                     self.messages.append("".join(
                         [attr.name, " failed in the past with value ",
